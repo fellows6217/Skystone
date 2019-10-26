@@ -26,6 +26,9 @@ public class TeleOpTestBot extends OpMode
     DcMotor motorBR;
     DcMotor motorBL;
 
+    //Worm Gear
+    DcMotor Reacher;
+
 
     /* IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;*/
