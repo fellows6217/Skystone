@@ -20,7 +20,7 @@ public class TeleOpTestBot extends OpMode
 {
     //*******************************************************************************************
     //Drive motors
-    /*FR = Front Right Wheel, FL = Front Left Wheel, BR = Back Righ Wheelt, BL = Back Left Wheel, Con1= Conveyor 1, Con2= Conveyor 2*/
+    /*FR = Front Right Wheel, FL = Front Left Wheel, BR = Back Right Wheel, BL = Back Left Wheel, Con1= Conveyor 1, Con2= Conveyor 2*/
     DcMotor motorFL;
     DcMotor motorFR;
     DcMotor motorBR;
@@ -50,11 +50,11 @@ public class TeleOpTestBot extends OpMode
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorFR.setDirection(DcMotor.Direction.FORWARD);
         motorBR = hardwareMap.dcMotor.get("motorBR");
-        motorBR.setDirection(DcMotor.Direction.FORWARD);
+        motorBR.setDirection(DcMotor.Direction.REVERSE);
         motorBL = hardwareMap.dcMotor.get("motorBL");
         motorBL.setDirection(DcMotor.Direction.REVERSE);
         motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorFL.setDirection(DcMotor.Direction.REVERSE);
+        motorFL.setDirection(DcMotor.Direction.FORWARD);
 
     }
 
