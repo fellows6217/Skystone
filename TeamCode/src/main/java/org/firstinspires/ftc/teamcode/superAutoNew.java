@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import com.qualcomm.ftccommon.SoundPlayer;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -85,6 +87,27 @@ abstract public class superAutoNew extends LinearOpMode {
     boolean iAmRed;
     boolean iAmBlue = !iAmRed;
     int startingQuadrant;
+
+    //  Sounds
+    int ss_alarm = 1;
+    int ss_bb8_down = 2;
+    int ss_bb8_up = 3;
+    int ss_darth_vader = 4;
+    int ss_fly_by" = 5;
+    int ss_mf_fail = 6;
+    int ss_laser = 7;
+    int ss_laser_burst =8;
+    int ss_light_saber = 9;
+    int ss_light_saber_long = 10;
+    int ss_light_saber_short =11;
+    int ss_light_speed = 12;
+    int ss_mine = 13;
+    int ss_power_up = 14;
+    int ss_r2d2_up = 15;
+    int ss_roger_roger = 16;
+    int ss_siren = 17;
+    int ss_wookie = 18;
+
     //*******************************************************************************************
     //Variables Specific to Challenge
     //RelicRecoveryVuMark[] boxOrder = new RelicRecoveryVuMark[4];
@@ -276,6 +299,28 @@ abstract public class superAutoNew extends LinearOpMode {
         motorFR.setPower(0);
         motorBR.setPower(0);
     }
+
+    public playSound(int SoundIndex) {
+
+        // create a sound parameter that holds the desired player parameters.
+        SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
+        params.loopControl = 0;
+        params.waitForNonLoopingSoundsToFinish = true;
+
+        // Determine Resource IDs for the sounds you want to play, and make sure it's valid.
+        if ((soundID = myApp.getResources().getIdentifier(sounds[soundIndex], "raw", myApp.getPackageName())) != 0){
+
+            // Signal that the sound is now playing.
+            soundPlaying = true;
+
+            // Start playing, and also Create a callback that will clear the playing flag when the sound is complete.
+            SoundPlayer.getInstance().startPlaying(myApp, soundID, params, null,
+                    new Runnable() {
+                        public void run() {
+                            soundPlaying = false;
+                        }} );
+
+        }
 
     public double getHeading() {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
