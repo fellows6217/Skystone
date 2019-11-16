@@ -5,9 +5,9 @@
             <LynxModule name="Expansion Hub 3" port="3">
                 <!--<REVRoboticsCoreHexMotor name="motorBR" port="0" />-->
             <RevRoboticsCoreHexMotor name="motorFL" port="0" />
-            <!--<NeveRest20Gearmotor name="mineralLiftR" port="1" />-->
+            <!--<NeveRest20Gearmotor name="arm" port="1" />-->
             <RevRoboticsCoreHexMotor name="motorFR" port="2" />
-           <!-- <TetrixMotor name="robotLift" port="3"/>-->
+           <!-- <TetrixMotor name="VLM" port="3"/>-->
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
             <!--<ModernRoboticsI2cRangeSensor name="rangeSensor" port="0" bus="1"/>-->
         </LynxModule>
@@ -15,11 +15,11 @@
             <RevRoboticsCoreHexMotor name="motorBL" port="0" />
            <!-- <NeveRest20Gearmotor name="slideMotor" port="1" />-->
             <RevRoboticsCoreHexMotor name="motorBR" port="2" />
-            <RevRoboticsCoreHexMotor name="sweeperMotor" port="3" />
+            <!--<RevRoboticsCoreHexMotor name="sweeperMotor" port="3" />-->
             <!--<Servo name="binLeveler" port="1"/>
             <ContinuousRotationServo name="binLifter" port="0"/>
-            <Servo name="servo_U" port="4"/>
-            <Servo name="servo_V" port="5"/>-->
+            <Servo name="wrist" port="4"/>
+            <Servo name="claw" port="5"/>-->
         </LynxModule>
     </LynxUsbDevice>
 </Robot>
