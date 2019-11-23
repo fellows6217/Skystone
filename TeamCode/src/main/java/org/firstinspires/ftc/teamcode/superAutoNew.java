@@ -29,6 +29,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.Came
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
@@ -39,10 +42,11 @@ import java.util.Locale;
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YXZ;
+import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 
@@ -89,11 +93,14 @@ abstract public class superAutoNew extends LinearOpMode {
     int startingQuadrant;
 
     //  Sounds
+    int soundIndex = 0;
+    int soundID = -1;
+    boolean soundPlaying = false;
     int ss_alarm = 1;
     int ss_bb8_down = 2;
     int ss_bb8_up = 3;
     int ss_darth_vader = 4;
-    int ss_fly_by" = 5;
+    int ss_fly_by = 5;
     int ss_mf_fail = 6;
     int ss_laser = 7;
     int ss_laser_burst =8;
@@ -130,8 +137,6 @@ abstract public class superAutoNew extends LinearOpMode {
 
         composeTelemetry();
 
-        waitForStart();
-
         // Start the logging of measured acceleration
         imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
@@ -139,7 +144,17 @@ abstract public class superAutoNew extends LinearOpMode {
         //==================================
         //Setup Specific to Challenge
 
-        //initTfod();
+        initVuforia();
+
+        initTfod();
+
+
+
+        //==================================
+        //All Setup completed, proceed...
+
+        waitForStart();
+
     }
 
     void configureGyro() {
@@ -300,7 +315,13 @@ abstract public class superAutoNew extends LinearOpMode {
         motorBR.setPower(0);
     }
 
-    public playSound(int SoundIndex) {
+    public void playSound(int SoundIndex) {
+
+        Context myApp = hardwareMap.appContext;
+
+        String  sounds[] =  {"ss_alarm", "ss_bb8_down", "ss_bb8_up", "ss_darth_vader", "ss_fly_by",
+                "ss_mf_fail", "ss_laser", "ss_laser_burst", "ss_light_saber", "ss_light_saber_long", "ss_light_saber_short",
+                "ss_light_speed", "ss_mine", "ss_power_up", "ss_r2d2_up", "ss_roger_roger", "ss_siren", "ss_wookie" };
 
         // create a sound parameter that holds the desired player parameters.
         SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
@@ -308,7 +329,7 @@ abstract public class superAutoNew extends LinearOpMode {
         params.waitForNonLoopingSoundsToFinish = true;
 
         // Determine Resource IDs for the sounds you want to play, and make sure it's valid.
-        if ((soundID = myApp.getResources().getIdentifier(sounds[soundIndex], "raw", myApp.getPackageName())) != 0){
+        if ((soundID = myApp.getResources().getIdentifier(sounds[soundIndex], "raw", myApp.getPackageName())) != 0) {
 
             // Signal that the sound is now playing.
             soundPlaying = true;
@@ -318,9 +339,11 @@ abstract public class superAutoNew extends LinearOpMode {
                     new Runnable() {
                         public void run() {
                             soundPlaying = false;
-                        }} );
+                        }
+                    });
 
         }
+    }
 
     public double getHeading() {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -835,76 +858,226 @@ abstract public class superAutoNew extends LinearOpMode {
             startingQuadrant = 4;
     }
 */
-    void configVuforiaRoverRuckus() {
-        final String TAG = "Vuforia Navigation Sample";
-        OpenGLMatrix lastLocation = null;
-        VuforiaLocalizer vuforia;
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey = "AYhHUgX/////AAABmTO0g2PsdUqpg5xo" +
+
+
+    void configVuforiaSkystone() {
+
+        // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
+        final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
+        final boolean PHONE_IS_PORTRAIT = false  ;
+
+        final String VUFORIA_KEY = "AYhHUgX/////AAABmTO0g2PsdUqpg5xo" +
                 "96O7OkOB7qrwOjE24wV71lIm/MF9g96awd677rj7LrgQKUJAewgWkAAxn1MUJtUyiq" +
                 "9iesjKF+QNXlKr5qCAb69hI268sYjjCJ+PqVBtMrlcIG1F4l2osl9zIk9tYAYfLXKl" +
                 "T351h1yRW1AqAdHJaHwt861ztrh4EW/1WjOV3/yT4SDtrJivhfmU0c51IqPUEJ0xqbWFr2saxvS/cSkH4e+hFIImM/jIw5JkaizeznuFTA" +
                 "TnWTq9Spp/EhPPaQXJtScNP3DDaNDdfiqT9opwsxuQlEe1YF19sHjtenGD7/PcUlQXVS+VKbxaSqd/Cnq4+/3bOuhNzFoTVbBKZ16DQ9EZeCJM";
-        parameters.cameraDirection = CameraDirection.BACK;
-        vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        targetsRoverRuckus = vuforia.loadTrackablesFromAsset("RoverRuckus");
-        VuforiaTrackable blueRover = targetsRoverRuckus.get(0);
-        blueRover.setName("Blue-Rover");
-        VuforiaTrackable redFootprint = targetsRoverRuckus.get(1);
-        redFootprint.setName("Red-Footprint");
-        VuforiaTrackable frontCraters = targetsRoverRuckus.get(2);
-        frontCraters.setName("Front-Craters");
-        VuforiaTrackable backSpace = targetsRoverRuckus.get(3);
-        backSpace.setName("Back-Space");
+
+        // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
+        // We will define some constants and conversions here
+        final float mmPerInch        = 25.4f;
+        final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
+
+        // Constant for Stone Target
+        final float stoneZ = 2.00f * mmPerInch;
+
+        // Constants for the center support targets
+        final float bridgeZ = 6.42f * mmPerInch;
+        final float bridgeY = 23 * mmPerInch;
+        final float bridgeX = 5.18f * mmPerInch;
+        final float bridgeRotY = 59;                                 // Units are degrees
+        final float bridgeRotZ = 180;
+
+        // Constants for perimeter targets
+        final float halfField = 72 * mmPerInch;
+        final float quadField  = 36 * mmPerInch;
+
+        /**
+         * This is the webcam we are to use. As with other hardware devices such as motors and
+         * servos, this device is identified using the robot configuration tool in the FTC application.
+         */
+        WebcamName webcamName = null;
+
+        boolean targetVisible = false;
+        float phoneXRotate    = 0;
+        float phoneYRotate    = 0;
+        float phoneZRotate    = 0;
+
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
+         * If no camera monitor is desired, use the parameter-less constructor instead (commented out below).
+         */
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Load the data sets for the trackable objects. These particular data
+        // sets are stored in the 'assets' part of our application.
+        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+
+        VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
+        stoneTarget.setName("Stone Target");
+        VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
+        blueRearBridge.setName("Blue Rear Bridge");
+        VuforiaTrackable redRearBridge = targetsSkyStone.get(2);
+        redRearBridge.setName("Red Rear Bridge");
+        VuforiaTrackable redFrontBridge = targetsSkyStone.get(3);
+        redFrontBridge.setName("Red Front Bridge");
+        VuforiaTrackable blueFrontBridge = targetsSkyStone.get(4);
+        blueFrontBridge.setName("Blue Front Bridge");
+        VuforiaTrackable red1 = targetsSkyStone.get(5);
+        red1.setName("Red Perimeter 1");
+        VuforiaTrackable red2 = targetsSkyStone.get(6);
+        red2.setName("Red Perimeter 2");
+        VuforiaTrackable front1 = targetsSkyStone.get(7);
+        front1.setName("Front Perimeter 1");
+        VuforiaTrackable front2 = targetsSkyStone.get(8);
+        front2.setName("Front Perimeter 2");
+        VuforiaTrackable blue1 = targetsSkyStone.get(9);
+        blue1.setName("Blue Perimeter 1");
+        VuforiaTrackable blue2 = targetsSkyStone.get(10);
+        blue2.setName("Blue Perimeter 2");
+        VuforiaTrackable rear1 = targetsSkyStone.get(11);
+        rear1.setName("Rear Perimeter 1");
+        VuforiaTrackable rear2 = targetsSkyStone.get(12);
+        rear2.setName("Rear Perimeter 2");
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
-        allTrackables = new ArrayList<VuforiaTrackable>();
-        allTrackables.addAll(targetsRoverRuckus);
+        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+        allTrackables.addAll(targetsSkyStone);
 
-        final float mmPerInch = 25.4f;
-        final float mmFTCFieldWidth = (12 * 6) * mmPerInch;       // the width of the FTC field (from the center point to the outer panels)
-        final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
-        final CameraDirection CAMERA_CHOICE = BACK;
+        /**
+         * In order for localization to work, we need to tell the system where each target is on the field, and
+         * where the phone resides on the robot.  These specifications are in the form of <em>transformation matrices.</em>
+         * Transformation matrices are a central, important concept in the math here involved in localization.
+         * See <a href="https://en.wikipedia.org/wiki/Transformation_matrix">Transformation Matrix</a>
+         * for detailed information. Commonly, you'll encounter transformation matrices as instances
+         * of the {@link OpenGLMatrix} class.
+         *
+         * If you are standing in the Red Alliance Station looking towards the center of the field,
+         *     - The X axis runs from your left to the right. (positive from the center to the right)
+         *     - The Y axis runs from the Red Alliance Station towards the other side of the field
+         *       where the Blue Alliance Station is. (Positive is from the center, towards the BlueAlliance station)
+         *     - The Z axis runs from the floor, upwards towards the ceiling.  (Positive is above the floor)
+         *
+         * Before being transformed, each target image is conceptually located at the origin of the field's
+         *  coordinate system (the center of the field), facing up.
+         */
 
-        OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
-                .translation(0, mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
-        blueRover.setLocation(blueRoverLocationOnField);
+        // Set the position of the Stone Target.  Since it's not fixed in position, assume it's at the field origin.
+        // Rotated it to to face forward, and raised it to sit on the ground correctly.
+        // This can be used for generic target-centric approach algorithms
+        stoneTarget.setLocation(OpenGLMatrix
+                .translation(0, 0, stoneZ)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
-        OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
-                .translation(0, -mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
-        redFootprint.setLocation(redFootprintLocationOnField);
+        //Set the position of the bridge support targets with relation to origin (center of field)
+        blueFrontBridge.setLocation(OpenGLMatrix
+                .translation(-bridgeX, bridgeY, bridgeZ)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, bridgeRotY, bridgeRotZ)));
 
-        OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
-                .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
-        frontCraters.setLocation(frontCratersLocationOnField);
+        blueRearBridge.setLocation(OpenGLMatrix
+                .translation(-bridgeX, bridgeY, bridgeZ)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, -bridgeRotY, bridgeRotZ)));
 
-        OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
-                .translation(mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
-        backSpace.setLocation(backSpaceLocationOnField);
+        redFrontBridge.setLocation(OpenGLMatrix
+                .translation(-bridgeX, -bridgeY, bridgeZ)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, -bridgeRotY, 0)));
 
+        redRearBridge.setLocation(OpenGLMatrix
+                .translation(bridgeX, -bridgeY, bridgeZ)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, bridgeRotY, 0)));
 
-        final int CAMERA_FORWARD_DISPLACEMENT = 171;   // eg: Camera is 110 mm in front of robot center
-        final int CAMERA_VERTICAL_DISPLACEMENT = 324;   // eg: Camera is 200 mm above ground
-        final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
+        //Set the position of the perimeter targets with relation to origin (center of field)
+        red1.setLocation(OpenGLMatrix
+                .translation(quadField, -halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
 
-        OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
+        red2.setLocation(OpenGLMatrix
+                .translation(-quadField, -halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
+
+        front1.setLocation(OpenGLMatrix
+                .translation(-halfField, -quadField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90)));
+
+        front2.setLocation(OpenGLMatrix
+                .translation(-halfField, quadField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
+
+        blue1.setLocation(OpenGLMatrix
+                .translation(-quadField, halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0)));
+
+        blue2.setLocation(OpenGLMatrix
+                .translation(quadField, halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0)));
+
+        rear1.setLocation(OpenGLMatrix
+                .translation(halfField, quadField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , -90)));
+
+        rear2.setLocation(OpenGLMatrix
+                .translation(halfField, -quadField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
+
+        //
+        // Create a transformation matrix describing where the phone is on the robot.
+        //
+        // NOTE !!!!  It's very important that you turn OFF your phone's Auto-Screen-Rotation option.
+        // Lock it into Portrait for these numbers to work.
+        //
+        // Info:  The coordinate frame for the robot looks the same as the field.
+        // The robot's "forward" direction is facing out along X axis, with the LEFT side facing out along the Y axis.
+        // Z is UP on the robot.  This equates to a bearing angle of Zero degrees.
+        //
+        // The phone starts out lying flat, with the screen facing Up and with the physical top of the phone
+        // pointing to the LEFT side of the Robot.
+        // The two examples below assume that the camera is facing forward out the front of the robot.
+
+        // We need to rotate the camera around it's long axis to bring the correct camera forward.
+        if (CAMERA_CHOICE == BACK) {
+            phoneYRotate = -90;
+        } else {
+            phoneYRotate = 90;
+        }
+
+        // Rotate the phone vertical about the X axis if it's in portrait mode
+        if (PHONE_IS_PORTRAIT) {
+            phoneXRotate = 90 ;
+        }
+
+        // Next, translate the camera lens to where it is on the robot.
+        // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
+        final float CAMERA_FORWARD_DISPLACEMENT  = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
+        final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+
+        OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YXZ, DEGREES,
-                        -90, 90, -75));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
 
         /**  Let all the trackable listeners know where the phone is.  */
         for (VuforiaTrackable trackable : allTrackables) {
-            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
-        targetsRoverRuckus.activate();
+
+        targetsSkyStone.activate();
+
     }
 
-    void initTfod() {
+
+    /**
+     * Initialize the Vuforia localization engine.
+     */
+    void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = "AYhHUgX/////AAABmTO0g2PsdUqpg5xo" +
@@ -912,15 +1085,38 @@ abstract public class superAutoNew extends LinearOpMode {
                 "9iesjKF+QNXlKr5qCAb69hI268sYjjCJ+PqVBtMrlcIG1F4l2osl9zIk9tYAYfLXKl" +
                 "T351h1yRW1AqAdHJaHwt861ztrh4EW/1WjOV3/yT4SDtrJivhfmU0c51IqPUEJ0xqbWFr2saxvS/cSkH4e+hFIImM/jIw5JkaizeznuFTA" +
                 "TnWTq9Spp/EhPPaQXJtScNP3DDaNDdfiqT9opwsxuQlEe1YF19sHjtenGD7/PcUlQXVS+VKbxaSqd/Cnq4+/3bOuhNzFoTVbBKZ16DQ9EZeCJM";
-        parameters.cameraDirection = CameraDirection.BACK;
+
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+
+        //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+    }
+
+    /**
+     * Initialize the TensorFlow Object Detection engine.
+     */
+    void initTfod() {
+        final String TFOD_MODEL_ASSET = "Skystone.tflite";
+        final String LABEL_FIRST_ELEMENT = "Stone";
+        final String LABEL_SECOND_ELEMENT = "Skystone";
+
+
 
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
+
+
     //Write convert back from compass
 
     void distCorrector(double trgDistance) {
