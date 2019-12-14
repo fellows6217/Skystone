@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 
 @TeleOp(name="Preciousss: TeleOpTestBot", group="Preciousss")
@@ -26,9 +27,11 @@ public class TeleOpTestBot extends OpMode
     DcMotor motorBR;
     DcMotor motorBL;
 
-    //Worm Gear
-    DcMotor Reacher;
+    DcMotor reacher;
+    DcMotor slideLifter;
 
+    Servo wrist;
+    Servo claw;
 
     /* IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;*/
@@ -58,6 +61,14 @@ public class TeleOpTestBot extends OpMode
         motorBL.setDirection(DcMotor.Direction.REVERSE);
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFL.setDirection(DcMotor.Direction.FORWARD);
+
+        reacher = hardwareMap.dcMotor.get("reacher");
+        reacher.setDirection(DcMotor.Direction.FORWARD);
+        slideLifter = hardwareMap.dcMotor.get("slideLifter");
+        slideLifter.setDirection(DcMotor.Direction.FORWARD);
+
+        wrist = hardwareMap.servo.get("wrist");
+        claw = hardwareMap.servo.get("claw");
 
     }
 
@@ -94,14 +105,14 @@ public class TeleOpTestBot extends OpMode
         float posy = gamepad1.left_stick_y;
         float LT = gamepad1.left_trigger;
         float RT = gamepad1.right_trigger;
-        boolean a = gamepad1.a;
-        boolean b = gamepad1.b;
-        boolean y = gamepad1.y;
-        boolean x = gamepad1.x;
-        boolean rightPad = gamepad1.dpad_right;
-        boolean leftPad = gamepad1.dpad_left;
-        boolean dpad_up = gamepad1.dpad_up;
-        boolean dpad_down = gamepad1.dpad_down;
+        boolean a = gamepad1.a; // open/close grabber
+        boolean b = gamepad1.b; // wrist 80
+        boolean y = gamepad1.y; // wrist 90
+        boolean x = gamepad1.x; // wrist 0
+        boolean dpadRight = gamepad1.dpad_right;
+        boolean dpadLeft = gamepad1.dpad_left;
+        boolean dpadUp = gamepad1.dpad_up;
+        boolean dpadDown = gamepad1.dpad_down;
          /* ~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Limit x and y values and adjust to power curve
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -116,9 +127,8 @@ public class TeleOpTestBot extends OpMode
         RT = (float) powerCurve(RT);
 
 
-
         // pivot left
-        if (LT != 0)  {
+        if (LT != 0) {
 
             motorFL.setPower(1);
             motorBL.setPower(1);
@@ -128,7 +138,7 @@ public class TeleOpTestBot extends OpMode
 
 
         //  pivot right
-        else if (RT != 0)  {
+        else if (RT != 0) {
 
             motorFL.setPower(-1);
             motorBL.setPower(-1);
@@ -138,18 +148,16 @@ public class TeleOpTestBot extends OpMode
 
 
         //  Driving
-        if ( ( posy != 0) || ( posx != 0 ) ) {
+        if ((posy != 0) || (posx != 0)) {
 
             FRBLPower = -posy - posx;
             FLBRPower = -posy + posx;
-            motorFR.setPower( FRBLPower );
-            motorFL.setPower( FLBRPower );
-            motorBR.setPower( FLBRPower );
-            motorBL.setPower( FRBLPower );
+            motorFR.setPower(FRBLPower);
+            motorFL.setPower(FLBRPower);
+            motorBR.setPower(FLBRPower);
+            motorBL.setPower(FRBLPower);
 
-        }
-
-        else {
+        } else {
 
             motorFR.setPower(0);
             motorFL.setPower(0);
@@ -157,6 +165,45 @@ public class TeleOpTestBot extends OpMode
             motorBL.setPower(0);
         }
 
+        // Grabber controls
+
+        if (dpadUp) { //slide up
+            slideLifter.setPower(1);
+        } else if (dpadDown) { //slide down
+            slideLifter.setPower(-1);
+        } else if (dpadLeft) { // reacher in
+            reacher.setPower(-1);
+        } else if (dpadRight) { // reacher out
+            reacher.setPower(1);
+        } else {
+            slideLifter.setPower(0);
+            reacher.setPower(0);
+        }
+
+        if (a) {
+            claw.setPosition(180.); // open
+        } else {
+            claw.setPosition(0); // closed
+        }
+
+        /* if (b) {
+            wrist.setPosition(80.);
+        } else if (y) {
+            wrist.setPosition(90);
+        } else if (x) {
+            wrist.setPosition(0);
+        }
+        */
+
+        /* Incremental wrist turning */
+
+        if (x) {
+            wrist.setPosition(0);
+        } else if (b) {
+            wrist.setPosition(wrist.getPosition() + 1.);
+        } else if (y) {
+            wrist.setPosition(wrist.getPosition() - 1.);
+        }
 
         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Write telemetry back to driver station
