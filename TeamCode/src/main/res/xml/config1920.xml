@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<!-- Dec 14, 2019: Not yet tested. Working with Ben's handmade config Vroom Vroom -->
+<Robot type="FirstInspires-FTC">
+    <!-- <webcam  name="Webcam 1" serialNumber="748390E0" /> -->
+    <!--<LynxUsbDevice name="Expansion Hub 3" serialNumber="DQ2M10Q5" parentModuleAddress="3">-->
+    <!--<LynxUsbDevice name="Expansion Hub 2" serialNumber="DQ2MHRLJ" parentModuleAddress="2">-->
+    <LynxUsbDevice name="Expansion Hub Portal 1" serialNumber="DQ2MHRLJ" parentModuleAddress="2">
+        <LynxModule name="Expansion Hub 2" port="2"><!--DQ2MHRLJ -->
+            <RevRoboticsCoreHexMotor name="motorBL" port="0" />
+            <TextrixMotor name="slideLifter" port="1"/>
+            <RevRoboticsCoreHexMotor name="motorBR" port="2" />
+            <NeveRest20GearMotor name="reacher" port="3"/>
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <!--<LynxEmbeddedIMU name="imu" port="0" bus="0" />-->
+        </LynxModule>
+         <LynxModule name="Expansion Hub 3" port="3">
+             <!--<REVRoboticsCoreHexMotor name="motorBR" port="0" />-->
+             <RevRoboticsCoreHexMotor name="motorFL" port="0" />
+             <!--<NeveRest20Gearmotor name="arm" port="1" />-->
+             <RevRoboticsCoreHexMotor name="motorFR" port="2" />
+             <Servo name="wrist" port="4"/>
+             <Servo name="claw" port="5"/>
+             <!--<LynxEmbeddedIMU name="imu" port="0" bus="0" />-->
+        </LynxModule>
+    </LynxUsbDevice>
+</Robot>
