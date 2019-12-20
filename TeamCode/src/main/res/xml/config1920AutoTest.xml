@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<!-- Dec 14, 2019: Not yet tested. Working with Ben's handmade config Vroom Vroom -->
+<!-- Dec 20, 2019: Not yet tested. Our automatic version of Vroom Vroom -->
 <Robot type="FirstInspires-FTC">
     <!-- <webcam  name="Webcam 1" serialNumber="748390E0" /> -->
     <!--<LynxUsbDevice name="Expansion Hub 3" serialNumber="DQ2M10Q5" parentModuleAddress="3">-->
