@@ -6,6 +6,8 @@ public class Auto1920 extends superAutoNew {
             setUp();
             configVuforiaSkystone();
 
+            playSound(14);
+
 
             //Translate
             translate(-1,0,.5, 0.5);
