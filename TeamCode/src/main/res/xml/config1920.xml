@@ -9,14 +9,14 @@
             <RevRoboticsCoreHexMotor name="motorBL" port="0" />
             <TextrixMotor name="slideLifter" port="1"/>
             <RevRoboticsCoreHexMotor name="motorBR" port="2" />
-            <NeveRest20GearMotor name="reacher" port="3"/>
+            <!--<NeveRest20GearMotor name="reacher" port="3"/>-->
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
             <!--<LynxEmbeddedIMU name="imu" port="0" bus="0" />-->
         </LynxModule>
          <LynxModule name="Expansion Hub 3" port="3">
              <!--<REVRoboticsCoreHexMotor name="motorBR" port="0" />-->
              <RevRoboticsCoreHexMotor name="motorFL" port="0" />
-             <!--<NeveRest20Gearmotor name="arm" port="1" />-->
+             <NeveRest20Gearmotor name="reacher" port="1" />
              <RevRoboticsCoreHexMotor name="motorFR" port="2" />
              <Servo name="wrist" port="4"/>
              <Servo name="claw" port="5"/>

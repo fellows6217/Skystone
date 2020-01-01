@@ -145,7 +145,7 @@ abstract public class superAutoNew extends LinearOpMode {
 
 
 
-        initTfod();
+       // initTfod();
 
 
 
