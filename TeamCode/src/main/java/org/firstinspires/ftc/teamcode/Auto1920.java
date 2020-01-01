@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+@Autonomous(name="Preciousss: Auto1920", group="Preciousss")
+
 public class Auto1920 extends superAutoNew {
 
         public void runOpMode() {
             setUp();
-            configVuforiaSkystone();
+            //configVuforiaSkystone();
 
             playSound(14);
 
