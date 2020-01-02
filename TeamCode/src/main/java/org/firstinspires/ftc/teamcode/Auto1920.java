@@ -14,7 +14,7 @@ public class Auto1920 extends superAutoNew {
 
 
             //Translate
-            translate(0,-1,.5, 0.5);
+            translate(-1,0,4, 0.6);
             sR();
 
 
