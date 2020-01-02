@@ -64,6 +64,7 @@ abstract public class superAutoNew extends LinearOpMode {
     DcMotor motorFR;
     DcMotor motorFL;
     DcMotor motorBR;
+    DcMotor motorBL;
     //ModernRoboticsI2cRangeSensor rangeSensor;
 
 
@@ -79,7 +80,7 @@ abstract public class superAutoNew extends LinearOpMode {
     //Servo servo_V;
     /*CRServo outake1;
     CRServo outake2;*/
-    DcMotor motorBL;
+
     BNO055IMU imu;
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
     //*******************************************************************************************
@@ -193,11 +194,11 @@ abstract public class superAutoNew extends LinearOpMode {
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorFR.setDirection(DcMotor.Direction.FORWARD);
         motorBR = hardwareMap.dcMotor.get("motorBR");
-        motorBR.setDirection(DcMotor.Direction.FORWARD);
+        motorBR.setDirection(DcMotor.Direction.REVERSE);
         motorBL = hardwareMap.dcMotor.get("motorBL");
         motorBL.setDirection(DcMotor.Direction.REVERSE);
         motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorFL.setDirection(DcMotor.Direction.REVERSE);
+        motorFL.setDirection(DcMotor.Direction.FORWARD);
 
         Boolean fullRobot = false;
 
