@@ -753,8 +753,8 @@ abstract public class superAutoNew extends LinearOpMode {
         double addPower = (targetHeading - currentHeading) * .025;
         //telemetry.addData("add power", addPower);
 
-        double FRBLPower = basePosy - basePosx;
-        double FLBRPower = basePosy + basePosx;
+        double FRBLPower = -basePosy - basePosx;
+        double FLBRPower = -basePosy + basePosx;
         motorFR.setPower(FRBLPower + addPower);
         motorFL.setPower(FLBRPower - addPower);
         motorBR.setPower(FLBRPower + addPower);
@@ -762,8 +762,8 @@ abstract public class superAutoNew extends LinearOpMode {
     }
 
     void translate(double posx, double posy, double seconds, double power) {
-        double FRBLPower = (posy - posx) * power;
-        double FLBRPower = (posy + posx) * power;
+        double FRBLPower = (-posy - posx) * power;
+        double FLBRPower = (-posy + posx) * power;
         motorFR.setPower(FRBLPower);
         motorFL.setPower(FLBRPower);
         motorBR.setPower(FLBRPower);
@@ -776,8 +776,8 @@ abstract public class superAutoNew extends LinearOpMode {
     }
 
     void translateForever(double posx, double posy, double power) {
-        double FRBLPower = (posy - posx) * power;
-        double FLBRPower = (posy + posx) * power;
+        double FRBLPower = (-posy - posx) * power;
+        double FLBRPower = (-posy + posx) * power;
         motorFR.setPower(FRBLPower);
         motorFL.setPower(FLBRPower);
         motorBR.setPower(FLBRPower);
