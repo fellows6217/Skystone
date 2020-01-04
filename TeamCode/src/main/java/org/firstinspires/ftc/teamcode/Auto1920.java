@@ -16,9 +16,15 @@ public class Auto1920 extends superAutoNew {
             //Raise arm a little
             slideLifter.setPower(0.5);
             wait(0.5);
+            slideLifter.setPower(0);
 
             //Translate
             translate(-1,0,3, 0.75);
+
+            //Reach out
+            reacher.setPower(1);
+            wait(1);
+            slideLifter.setPower(0);
 
 
                sR();
