@@ -23,8 +23,8 @@ public class Auto1920 extends superAutoNew {
 
             //Reach out
             reacher.setPower(1);
-            Wait(1d);
-            slideLifter.setPower(0);
+            Wait(2d);
+            reacher.setPower(0);
 
 
                sR();
