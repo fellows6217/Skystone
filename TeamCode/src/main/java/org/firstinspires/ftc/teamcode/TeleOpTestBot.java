@@ -130,20 +130,20 @@ public class TeleOpTestBot extends OpMode
         // pivot left
         if (LT != 0) {
 
-            motorFL.setPower(1);
-            motorBL.setPower(1);
-            motorFR.setPower(-1);
-            motorBR.setPower(-1);
+            motorFL.setPower(-1);
+            motorBL.setPower(-1);
+            motorFR.setPower(1);
+            motorBR.setPower(1);
         }
 
 
         //  pivot right
         else if (RT != 0) {
 
-            motorFL.setPower(-1);
-            motorBL.setPower(-1);
-            motorFR.setPower(1);
-            motorBR.setPower(1);
+            motorFL.setPower(1);
+            motorBL.setPower(1);
+            motorFR.setPower(-1);
+            motorBR.setPower(-1);
         }
 
 
@@ -180,10 +180,18 @@ public class TeleOpTestBot extends OpMode
             reacher.setPower(0);
         }
 
-        if (a) {
-            claw.setPosition(180.); // open
+        /*if (a) {
+            claw.setPosition(180.); // closed
         } else {
-            claw.setPosition(0); // closed
+            claw.setPosition(0); // open
+        }*/
+
+        if (a) {
+            if (claw.getPosition() > 1) {
+                claw.setPosition(0);
+            } else {
+                claw.setPosition(180);
+            }
         }
 
         /* if (b) {
@@ -197,12 +205,12 @@ public class TeleOpTestBot extends OpMode
 
         /* Incremental wrist turning */
 
-        if (x) {
-            wrist.setPosition(wrist.getPosition() - 0.01);
-        } else if (b) {
-            wrist.setPosition(wrist.getPosition() + 1.);
-        } else if (y) {
+        if (y) {
             wrist.setPosition(0.5);
+        } else if (b) {
+            wrist.setPosition(wrist.getPosition() - 0.001);
+        } else if (x) {
+            wrist.setPosition(wrist.getPosition() + 0.001);
         }
 
         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
