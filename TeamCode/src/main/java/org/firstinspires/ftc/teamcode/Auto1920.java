@@ -13,6 +13,10 @@ public class Auto1920 extends superAutoNew {
             playSound(14);
 
 
+            //Raise arm a little
+            slideLifter.setPower(0.5);
+            wait(0.5);
+
             //Translate
             translate(-1,0,3, 0.75);
 

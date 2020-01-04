@@ -71,15 +71,13 @@ abstract public class superAutoNew extends LinearOpMode {
     //*******************************************************************************************
     //Devices Specific to Challenge
 
-    //DcMotor slideMotor;
-    //DcMotor mineralLiftR;
-    //DcMotor robotLift;
-    //Servo binLeveler;
-    //Servo binLifter;
-    //Servo servo_U;
-    //Servo servo_V;
-    /*CRServo outake1;
-    CRServo outake2;*/
+
+    DcMotor reacher;
+    DcMotor slideLifter;
+
+    Servo wrist;
+    Servo claw;
+
 
     BNO055IMU imu;
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -206,25 +204,15 @@ abstract public class superAutoNew extends LinearOpMode {
         //+++++++++++++++++++++++++++++++++++++++++++++++++
         //Devices Specific to Challenge
 
-        /*
-        robotLift = hardwareMap.dcMotor.get("robotLift");
-        robotLift.setDirection(DcMotor.Direction.FORWARD);
-        robotLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        if (fullRobot) {
-            slideMotor = hardwareMap.dcMotor.get("slideMotor");
-            slideMotor.setDirection(DcMotor.Direction.FORWARD);
-            mineralLiftR = hardwareMap.dcMotor.get("mineralLiftR");
-            mineralLiftR.setDirection(DcMotor.Direction.FORWARD);
-            robotLift = hardwareMap.dcMotor.get("robotLift");
-            robotLift.setDirection(DcMotor.Direction.FORWARD);
-            binLeveler = hardwareMap.servo.get("binLeveler");
-            binLifter = hardwareMap.servo.get("binLifter");
-            servo_U = hardwareMap.servo.get("servo_U");
-            servo_V = hardwareMap.servo.get("servo_V");
-            /*slide = hardwareMap.servo.get("slide"); //
-            outake1 = hardwareMap.crservo.get("outake1");
-            outake2 = hardwareMap.crservo.get("outake2");*/
+        reacher = hardwareMap.dcMotor.get("reacher");
+        reacher.setDirection(DcMotor.Direction.FORWARD);
+        slideLifter = hardwareMap.dcMotor.get("slideLifter");
+        slideLifter.setDirection(DcMotor.Direction.FORWARD);
+
+        wrist = hardwareMap.servo.get("wrist");
+        claw = hardwareMap.servo.get("claw");
+
     }
 
     void composeTelemetry() {
