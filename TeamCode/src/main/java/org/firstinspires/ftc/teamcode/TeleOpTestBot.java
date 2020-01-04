@@ -198,11 +198,11 @@ public class TeleOpTestBot extends OpMode
         /* Incremental wrist turning */
 
         if (x) {
-            wrist.setPosition(0);
+            wrist.setPosition(wrist.getPosition() - 0.01);
         } else if (b) {
             wrist.setPosition(wrist.getPosition() + 1.);
         } else if (y) {
-            wrist.setPosition(wrist.getPosition() - 1.);
+            wrist.setPosition(0.5);
         }
 
         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

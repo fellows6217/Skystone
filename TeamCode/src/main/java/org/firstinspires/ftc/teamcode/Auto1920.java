@@ -14,7 +14,7 @@ public class Auto1920 extends superAutoNew {
 
 
             //Raise arm a little
-            slideLifter.setPower(0.5);
+            slideLifter.setPower(1);
             Wait(0.5d);
             slideLifter.setPower(0);
 
@@ -23,7 +23,7 @@ public class Auto1920 extends superAutoNew {
 
             //Reach out
             reacher.setPower(1);
-            Wait(2d);
+            Wait(2.75d);
             reacher.setPower(0);
 
 
