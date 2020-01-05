@@ -192,6 +192,7 @@ public class TeleOpTestBot extends OpMode
             } else {
                 claw.setPosition(180);
             }
+            Wait(0.25d);
         }
 
         /* if (b) {
@@ -293,4 +294,13 @@ public class TeleOpTestBot extends OpMode
         return (dScale);
     }
 
+    void Wait(double WaitTime) {
+        runtime.reset();
+        while ((runtime.seconds() < WaitTime) && (opModeIsActive())) {
+            //Comment this out to avoid it overwriting other telemetry
+            //telemetry.addData("5", " %2.5f S Elapsed", runtime.seconds());
+            //telemetry.update();
+        }
+    }
 }
+
