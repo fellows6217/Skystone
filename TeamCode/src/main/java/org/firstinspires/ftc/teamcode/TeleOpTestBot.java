@@ -296,10 +296,7 @@ public class TeleOpTestBot extends OpMode
 
     void Wait(double WaitTime) {
         runtime.reset();
-        while ((runtime.seconds() < WaitTime) && (opModeIsActive())) {
-            //Comment this out to avoid it overwriting other telemetry
-            //telemetry.addData("5", " %2.5f S Elapsed", runtime.seconds());
-            //telemetry.update();
+        while ((runtime.seconds() < WaitTime)) {
         }
     }
 }
