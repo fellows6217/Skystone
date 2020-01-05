@@ -76,7 +76,7 @@ public class TeleOpTestBot extends OpMode
         claw = hardwareMap.servo.get("claw");
 
         // get a reference to our digitalTouch object.
-        digitalTouch = hardwareMap.get(DigitalChannel.class, "sensor_digital");
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "outerlimit");
 
         // set the digital channel to input.
         digitalTouch.setMode(DigitalChannel.Mode.INPUT);
@@ -248,11 +248,7 @@ public class TeleOpTestBot extends OpMode
 
         telemetry.addData("0", "Trigger: " +
                 String.format("%.2f", gamepad1.left_trigger));
-        if (digitalTouch.getState() == true) {
-            telemetry.addData("Digital Touch", "Is Not Pressed");
-        } else {
-            telemetry.addData("Digital Touch", "Is Pressed");
-        }
+
 
         telemetry.addData("0", "Trigger: " +
                 String.format("%.2f", gamepad1.right_trigger));
@@ -263,6 +259,12 @@ public class TeleOpTestBot extends OpMode
         telemetry.addData("5", "Actuator A, B,: " +
                 String.format("%b", gamepad1.a) + " " +
                 String.format("%b", gamepad1.b));
+
+        if (digitalTouch.getState() == true) {
+            telemetry.addData("Digital Touch", "Is Not Pressed");
+        } else {
+            telemetry.addData("Digital Touch", "Is Pressed");
+        }
     }
 
     /*
