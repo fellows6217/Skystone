@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+
 
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
@@ -32,6 +34,9 @@ public class TeleOpTestBot extends OpMode
 
     Servo wrist;
     Servo claw;
+
+    DigitalChannel digitalTouch;  // Hardware Device Object
+
 
     /* IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;*/
@@ -69,6 +74,13 @@ public class TeleOpTestBot extends OpMode
 
         wrist = hardwareMap.servo.get("wrist");
         claw = hardwareMap.servo.get("claw");
+
+        // get a reference to our digitalTouch object.
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "sensor_digital");
+
+        // set the digital channel to input.
+        digitalTouch.setMode(DigitalChannel.Mode.INPUT);
+
 
     }
 
@@ -236,6 +248,12 @@ public class TeleOpTestBot extends OpMode
 
         telemetry.addData("0", "Trigger: " +
                 String.format("%.2f", gamepad1.left_trigger));
+        if (digitalTouch.getState() == true) {
+            telemetry.addData("Digital Touch", "Is Not Pressed");
+        } else {
+            telemetry.addData("Digital Touch", "Is Pressed");
+        }
+
         telemetry.addData("0", "Trigger: " +
                 String.format("%.2f", gamepad1.right_trigger));
         telemetry.addData("4", "Right Bumper Left Bumper" +
