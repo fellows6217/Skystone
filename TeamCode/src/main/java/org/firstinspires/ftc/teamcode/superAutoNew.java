@@ -1281,7 +1281,7 @@ abstract public class superAutoNew extends LinearOpMode {
         slideLifter.setPower(0);
 
         //Translate
-        translate(-1,0,3, 0.75);
+        translate(-direction,0,3, 0.75);
 
         //Reach out
         reacher.setPower(1);
@@ -1294,7 +1294,7 @@ abstract public class superAutoNew extends LinearOpMode {
         slideLifter.setPower(0);
 
         //Translate
-        translate(1, 0, 3, 0.75);
+        translate(direction, 0, 3, 0.75);
 
         //Back up to park under bridge
         translate(0,1,2,0.75);
