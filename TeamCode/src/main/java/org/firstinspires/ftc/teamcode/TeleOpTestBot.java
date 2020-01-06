@@ -4,6 +4,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.content.Context;
+
+import com.qualcomm.ftccommon.SoundPlayer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,10 +15,37 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
-
+import com.qualcomm.ftccommon.SoundPlayer;
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
+
+            //  Sounds
+            int soundIndex = 0;
+            int soundID = -1;
+            boolean soundPlaying = false;
+            int ss_alarm = 1;
+            int ss_bb8_down = 2;
+            int ss_bb8_up = 3;
+            int ss_darth_vader = 4;
+            int ss_fly_by = 5;
+            int ss_mf_fail = 6;
+            int ss_laser = 7;
+            int ss_laser_burst =8;
+            int ss_light_saber = 9;
+            int ss_light_saber_long = 10;
+            int ss_light_saber_short =11;
+            int ss_light_speed = 12;
+            int ss_mine = 13;
+            int ss_power_up = 14;
+            int ss_r2d2_up = 15;
+            int ss_roger_roger = 16;
+            int ss_siren = 17;
+            int ss_wookie = 18;
+
 
 @TeleOp(name="Preciousss: TeleOpTestBot", group="Preciousss")
 
@@ -319,5 +349,36 @@ public class TeleOpTestBot extends OpMode
         while ((runtime.seconds() < WaitTime)) {
         }
     }
+
+    public void playSound(int SoundIndex) {
+
+        Context myApp = hardwareMap.appContext;
+
+        String  sounds[] =  {"ss_alarm", "ss_bb8_down", "ss_bb8_up", "ss_darth_vader", "ss_fly_by",
+                "ss_mf_fail", "ss_laser", "ss_laser_burst", "ss_light_saber", "ss_light_saber_long", "ss_light_saber_short",
+                "ss_light_speed", "ss_mine", "ss_power_up", "ss_r2d2_up", "ss_roger_roger", "ss_siren", "ss_wookie" };
+
+        // create a sound parameter that holds the desired player parameters.
+        SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
+        params.loopControl = 0;
+        params.waitForNonLoopingSoundsToFinish = true;
+
+        // Determine Resource IDs for the sounds you want to play, and make sure it's valid.
+        if ((soundID = myApp.getResources().getIdentifier(sounds[soundIndex], "raw", myApp.getPackageName())) != 0) {
+
+            // Signal that the sound is now playing.
+            soundPlaying = true;
+
+            // Start playing, and also Create a callback that will clear the playing flag when the sound is complete.
+            SoundPlayer.getInstance().startPlaying(myApp, soundID, params, null,
+                    new Runnable() {
+                        public void run() {
+                            soundPlaying = false;
+                        }
+                    });
+
+        }
+    }
+
 }
 
