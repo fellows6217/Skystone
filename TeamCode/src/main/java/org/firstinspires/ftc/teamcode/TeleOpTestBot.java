@@ -233,10 +233,10 @@ public class TeleOpTestBot extends OpMode
         if (a) {
             if (claw.getPosition() > 1) {
                 claw.setPosition(0);
-                playSound(ss_laser);
+                //playSound(ss_laser);
             } else {
                 claw.setPosition(180);
-                playSound(ss_bb8_down);
+                //playSound(ss_darth_vader);
             }
             //Wait(0.25d);
         }
