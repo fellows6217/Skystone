@@ -10,7 +10,7 @@ public class AutoMoveOnlyBlue extends superAutoNew {
             setUp();
             //configVuforiaSkystone();
 
-            playSound(ss_bb8_up);
+            playSound(ss_light_saber);
 
             moveFoundation(-1d);
 
