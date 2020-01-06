@@ -57,7 +57,7 @@ public class TeleOpTestBot extends OpMode
     private boolean RunLauncher = false;
     private int DelayCounter = 0;
     private int DelayTimer = 400 ;
-    public TeleOpTestBot() {}
+    //public TeleOpTestBot() {}
 
     //  Sounds
     int soundIndex = 0;
