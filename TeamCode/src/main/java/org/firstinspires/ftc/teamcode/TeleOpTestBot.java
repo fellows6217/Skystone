@@ -76,7 +76,7 @@ public class TeleOpTestBot extends OpMode
         claw = hardwareMap.servo.get("claw");
 
         // get a reference to our digitalTouch object.
-        digitalTouch = hardwareMap.get(DigitalChannel.class, "outerlimit");
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "sensor_digital");
 
         // set the digital channel to input.
         digitalTouch.setMode(DigitalChannel.Mode.INPUT);

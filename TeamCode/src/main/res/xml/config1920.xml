@@ -21,7 +21,7 @@
              <TetrixMotor name="slideLifter" port="3"/>
              <Servo name="wrist" port="4"/>
              <Servo name="claw" port="5"/>
-             <RevTouchSensor name="outerlimit" port="1" />
+             <RevTouchSensor name="sensor_digital" port="1" />
              <!--<LynxEmbeddedIMU name="imu" port="0" bus="0" />-->
         </LynxModule>
     </LynxUsbDevice>
