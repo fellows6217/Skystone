@@ -1287,15 +1287,16 @@ abstract public class superAutoNew extends LinearOpMode {
         translate(direction,0,15/sideSpeed, 0.75);
 
         //Forward
-        translate(0, -direction,1.15,0.75);
+        translate(0, -direction,1.225,0.75);
 
         //Reach out
         reacher.setPower(1);
-        Wait(1.5d);
+        Wait(1.75d);
         reacher.setPower(0);
 
         //Rotate wrist
         wrist.setPosition(0.9);
+        Wait(1d);
 
         //Set claw down
         slideLifter.setPower(-1);
@@ -1303,7 +1304,7 @@ abstract public class superAutoNew extends LinearOpMode {
         slideLifter.setPower(0);
 
         //Back up to drag foundation
-        translate(0,direction,1.15,0.75);
+        translate(0,direction,1.225,0.75);
 
         //Lift claw
         slideLifter.setPower(1);
