@@ -1284,7 +1284,7 @@ abstract public class superAutoNew extends LinearOpMode {
         slideLifter.setPower(0);
 
         //Translate
-        translate(-direction,0,15/sideSpeed, 0.75);
+        translate(direction,0,15/sideSpeed, 0.75);
 
         //Forward
         translate(0, -direction,0.5,0.75);
@@ -1308,7 +1308,7 @@ abstract public class superAutoNew extends LinearOpMode {
         slideLifter.setPower(0);
 
         //Translate
-        translate(direction, 0, 48/sideSpeed, 0.75);
+        translate(-direction, 0, 48/sideSpeed, 0.75);
 
     }
 
