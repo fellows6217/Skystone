@@ -1275,14 +1275,16 @@ abstract public class superAutoNew extends LinearOpMode {
     }
 
     void moveFoundation(double direction) {
+
         double sideSpeed=14;
+
         //Raise arm a little
         slideLifter.setPower(1);
         Wait(0.5d);
         slideLifter.setPower(0);
 
         //Translate
-        translate(-direction,0,1, 0.75);
+        translate(-direction,0,15/sideSpeed, 0.75);
 
         //Forward
         translate(0, -direction,0.5,0.75);
@@ -1297,11 +1299,16 @@ abstract public class superAutoNew extends LinearOpMode {
         Wait(0.5);
         slideLifter.setPower(0);
 
-        //Translate
-        translate(-direction, 0, 3, 0.75);
+        //Back up to drag foundation
+        translate(0,direction,0.5,0.75);
 
-        //Back up to park under bridge
-        translate(0,1,0.5,0.75);
+        //Lift claw
+        slideLifter.setPower(1);
+        Wait(1.25d);
+        slideLifter.setPower(0);
+
+        //Translate
+        translate(direction, 0, 48/sideSpeed, 0.75);
 
     }
 
