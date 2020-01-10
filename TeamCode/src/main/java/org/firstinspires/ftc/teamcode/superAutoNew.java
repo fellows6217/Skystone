@@ -1291,11 +1291,11 @@ abstract public class superAutoNew extends LinearOpMode {
 
         //Reach out
         reacher.setPower(1);
-        Wait(1.9d);
+        Wait(2.1d);
         reacher.setPower(0);
 
         //Rotate wrist
-        wrist.setPosition(0.9);
+        wrist.setPosition(0.8);
         Wait(1.5d);
 
         //Set claw down
