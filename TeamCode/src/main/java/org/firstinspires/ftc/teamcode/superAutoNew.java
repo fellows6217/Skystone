@@ -1306,7 +1306,7 @@ abstract public class superAutoNew extends LinearOpMode {
         Wait(0.5d);
 
         //Back up to drag foundation
-        translate(0,direction,1.6,0.5);
+        translate(0,direction,1.685,0.5);
 
         //Lift claw
         slideLifter.setPower(1);
