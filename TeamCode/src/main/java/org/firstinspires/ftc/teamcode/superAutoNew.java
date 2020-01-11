@@ -1319,6 +1319,19 @@ abstract public class superAutoNew extends LinearOpMode {
 
     }
 
+    void Park(double whichWay){
+
+        double sideSpeed=14;
+        double forwardSpeed=24.5;
+
+        //Forward
+        translate(0,-1,20/forwardSpeed,0.75);
+
+        //Translate to park
+        translate(whichWay,0,42/sideSpeed,0.75);
+
+    }
+
     enum pivotStates {None, Left, Right, Init}
 
     enum states {Space, Gold, Gold_Again, Silver, Silver_Again}
