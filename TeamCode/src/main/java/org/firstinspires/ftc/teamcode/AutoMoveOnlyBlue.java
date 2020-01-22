@@ -12,7 +12,7 @@ public class AutoMoveOnlyBlue extends superAutoNew {
 
             playSound(ss_light_saber);
 
-            moveFoundation(-1d);
+            moveFoundation(1d);
 
             sR();
 

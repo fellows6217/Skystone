@@ -77,6 +77,7 @@ abstract public class superAutoNew extends LinearOpMode {
 
     Servo wrist;
     Servo claw;
+    Servo duckBill;
 
 
     BNO055IMU imu;
@@ -1279,40 +1280,20 @@ abstract public class superAutoNew extends LinearOpMode {
         double sideSpeed=14;
         double forwardSpeed=24.5;
 
-        //Raise arm a little
-        slideLifter.setPower(1);
-        Wait(0.5d);
-        slideLifter.setPower(0);
-
         //Translate
-        translate(direction,0,15/sideSpeed, 0.75);
+        translate(direction,0,18/sideSpeed, 0.75);
 
-        //Forward
-        translate(0, -1,33/forwardSpeed,0.75);
+        //Reverse
+        translate(0, 1,33/forwardSpeed,0.75);
 
-        //Reach out
-        reacher.setPower(1);
-        Wait(3.5);
-        reacher.setPower(0);
-
-        //Rotate wrist
-        wrist.setPosition(0.8);
-        Wait(1.5d);
-
-        //Set claw down
-        slideLifter.setPower(-1);
-        Wait(0.5d);
-        slideLifter.setPower(0);
-        Wait(0.5d);
+        //Drop arm
+        duckBill.setPosition(0);
 
         //Back up to drag foundation
-        translate(0,1,3.2,0.5);
+        translate(0,-1,3.2,0.5);
 
-        //Lift claw
-        slideLifter.setPower(1);
-        Wait(0.5d);
-        slideLifter.setPower(0);
-        Wait(0.5d);
+        //Lift arm
+        duckBill.setPosition(1);
 
         //Translate
         translate(-direction, 0, 48/sideSpeed, 0.75);

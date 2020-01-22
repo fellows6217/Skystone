@@ -43,6 +43,7 @@ public class TeleOpTestBot extends OpMode
 
     Servo wrist;
     Servo claw;
+    Servo duckBill;
 
     DigitalChannel digitalTouch;  // Hardware Device Object
 

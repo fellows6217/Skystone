@@ -12,7 +12,7 @@ public class AutoMoveOnlyRed extends superAutoNew {
 
             playSound(ss_power_up);
 
-            moveFoundation(1d);
+            moveFoundation(-1d);
 
             sR();
 
