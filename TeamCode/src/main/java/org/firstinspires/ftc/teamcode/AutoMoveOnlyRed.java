@@ -10,7 +10,12 @@ public class AutoMoveOnlyRed extends superAutoNew {
             setUp();
             //configVuforiaSkystone();
 
+            double sideSpeed=14;
+
             playSound(ss_power_up);
+
+            //Translate
+            translate(1,0,1.5/sideSpeed, 0.75);
 
             moveFoundation(-1d);
 
