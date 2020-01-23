@@ -107,6 +107,7 @@ public class TeleOpTestBot extends OpMode
 
         wrist = hardwareMap.servo.get("wrist");
         claw = hardwareMap.servo.get("claw");
+        duckBill = hardwareMap.servo.get("duckBill");
 
         // get a reference to our digitalTouch object.
       //  digitalTouch = hardwareMap.get(DigitalChannel.class, "sensor_digital");

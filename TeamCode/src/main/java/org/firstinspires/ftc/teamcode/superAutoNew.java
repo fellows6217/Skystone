@@ -213,6 +213,7 @@ abstract public class superAutoNew extends LinearOpMode {
 
         wrist = hardwareMap.servo.get("wrist");
         claw = hardwareMap.servo.get("claw");
+        duckBill = hardwareMap.servo.get("duckBill");
 
     }
 
@@ -1295,6 +1296,7 @@ abstract public class superAutoNew extends LinearOpMode {
 
         //Lift arm
         duckBill.setPosition(1);
+        Wait(1d);
 
         //Translate
         translate(-direction, 0, 48/sideSpeed, 0.75);
