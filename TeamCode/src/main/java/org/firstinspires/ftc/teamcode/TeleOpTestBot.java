@@ -262,6 +262,14 @@ public class TeleOpTestBot extends OpMode
             wrist.setPosition(wrist.getPosition() + 0.001);
         }
 
+        if (a && b){
+            duckBill.setPosition(0);
+        }
+
+        if (a && x) {
+            duckBill.setPosition(1);
+        }
+
         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Write telemetry back to driver station
             NOTE: Output is sorted by the first field, hence the numbering
