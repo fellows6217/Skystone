@@ -1292,7 +1292,7 @@ abstract public class superAutoNew extends LinearOpMode {
         Wait(3d);
 
         //Back up to drag foundation
-        translate(0,-1,5.3,0.3);
+        translate(0,-1,5.8,0.3);
 
         //Lift arm
         duckBill.setPosition(1);
