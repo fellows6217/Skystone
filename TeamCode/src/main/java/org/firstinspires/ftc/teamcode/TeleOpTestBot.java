@@ -159,6 +159,7 @@ public class TeleOpTestBot extends OpMode
         boolean dpadLeft = gamepad1.dpad_left;
         boolean dpadUp = gamepad1.dpad_up;
         boolean dpadDown = gamepad1.dpad_down;
+        boolean joyButtonR = gamepad1.right_stick_button;
          /* ~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Limit x and y values and adjust to power curve
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -262,13 +263,18 @@ public class TeleOpTestBot extends OpMode
             wrist.setPosition(wrist.getPosition() + 0.001);
         }
 
-        if (a && b){
-            duckBill.setPosition(0);
+        if (joyButtonR) {
+            if (duckBill.getPosition() > 0.1) {
+                duckBill.setPosition(0);
+                //playSound(7);
+            } else {
+                claw.setPosition(1);
+                //playSound(10);
+            }
+            Wait(0.25d);
         }
 
-        if (a && x) {
-            duckBill.setPosition(1);
-        }
+
 
         /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Write telemetry back to driver station
