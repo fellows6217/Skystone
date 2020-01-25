@@ -264,11 +264,11 @@ public class TeleOpTestBot extends OpMode
         }
 
         if (joyButtonR) {
-            if (duckBill.getPosition() > 0.1) {
-                duckBill.setPosition(0);
+            if (duckBill.getPosition() < 0.5) {
+                duckBill.setPosition(1);
                 //playSound(7);
             } else {
-                claw.setPosition(1);
+                duckBill.setPosition(0);
                 //playSound(10);
             }
             Wait(0.25d);
