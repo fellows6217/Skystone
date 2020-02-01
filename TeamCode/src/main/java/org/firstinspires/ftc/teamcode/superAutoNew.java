@@ -1298,8 +1298,8 @@ abstract public class superAutoNew extends LinearOpMode {
         duckBill.setPosition(1);
         Wait(2d);
 
-        //Translate
-        translate(-direction, 0, 48/sideSpeed, 0.75);
+        //Translate to park
+        //translate(-direction, 0, 48/sideSpeed, 0.75);
 
     }
 

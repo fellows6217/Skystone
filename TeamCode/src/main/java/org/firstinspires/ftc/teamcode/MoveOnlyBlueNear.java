@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Preciousss: AutoMoveOnlyBlueNear", group="Preciousss")
+@Autonomous(name="Preciousss: MoveOnlyBlueNear", group="Preciousss")
 
-public class AutoMoveOnlyBlueNear extends superAutoNew {
+public class MoveOnlyBlueNear extends superAutoNew {
 
         public void runOpMode() {
 
