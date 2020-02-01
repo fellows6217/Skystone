@@ -1308,9 +1308,6 @@ abstract public class superAutoNew extends LinearOpMode {
         double sideSpeed=14;
         double forwardSpeed=24.5;
 
-        //Forward
-        translate(0,-1,20/forwardSpeed,0.75);
-
         //Translate to park
         translate(whichWay,0,42/sideSpeed,0.75);
 

@@ -16,15 +16,10 @@ public class MoveOnlyRed2Far extends superAutoNew {
 
         playSound(ss_light_saber);
 
+        //Forward
+        translate(0,-1,20/forwardSpeed,0.75);
+
         Park(-1d);
-
-        //Translate
-        translate(-1,0,16/sideSpeed,0.75);
-
-        translate(0,1,26/forwardSpeed,0.75);
-
-        translate(-1,0,40/sideSpeed,0.75);
-
 
         sR();
 

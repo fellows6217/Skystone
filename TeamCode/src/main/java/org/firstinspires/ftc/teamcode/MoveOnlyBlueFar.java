@@ -22,11 +22,11 @@ public class MoveOnlyBlueFar extends superAutoNew {
 
         translate(0,1,26/forwardSpeed,0.75);
 
-        translate(-1,0,40/sideSpeed,0.75);
+        translate(-1,0,32/sideSpeed,0.75);
 
         sR();
 
-        //translate a total of 56 inches to make it back to the skybridge
+        //translate a total of 48 inches to make it back to the skybridge
 
 
 
