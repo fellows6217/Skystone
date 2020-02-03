@@ -15,16 +15,16 @@ public class MoveOnlyRedFar extends superAutoNew {
 
         playSound(ss_power_up);
 
-        translate(-1,0,2/sideSpeed,0.75);
+        //translate(-1,0,2/sideSpeed,0.75);
 
         moveFoundation(-1d);
 
         //Translate
-        translate(1,0,16/sideSpeed,0.75);
+        translate(1,0,42/sideSpeed,0.75);
 
-        translate(0,1,26/forwardSpeed,0.75);
+        translate(0,1,20/forwardSpeed,0.75);
 
-        translate(1,0,32/sideSpeed,0.75);
+        translate(1,0,18/sideSpeed,0.75);
 
         sR();
 
