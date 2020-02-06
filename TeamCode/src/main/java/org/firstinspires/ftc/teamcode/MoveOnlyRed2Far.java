@@ -19,7 +19,7 @@ public class MoveOnlyRed2Far extends superAutoNew {
         //Forward
         translate(0,-1,20/forwardSpeed,0.75);
 
-        Park(-1d);
+        Park(1d);
 
         sR();
 
